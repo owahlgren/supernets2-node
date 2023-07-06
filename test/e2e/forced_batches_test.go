@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/0xPolygonHermez/zkevm-node/etherman/smartcontracts/polygonzkevm"
-	"github.com/0xPolygonHermez/zkevm-node/etherman/smartcontracts/polygonzkevmglobalexitroot"
+	"github.com/0xPolygonHermez/zkevm-node/etherman/smartcontracts/supernets2"
+	"github.com/0xPolygonHermez/zkevm-node/etherman/smartcontracts/supernets2globalexitroot"
 	"github.com/0xPolygonHermez/zkevm-node/log"
 	"github.com/0xPolygonHermez/zkevm-node/state"
 	"github.com/0xPolygonHermez/zkevm-node/test/constants"
@@ -121,8 +121,8 @@ func sendForcedBatch(t *testing.T, txs []byte, opsman *operations.Manager) (*sta
 	require.NoError(t, err)
 
 	// Create smc client
-	zkEvmAddr := common.HexToAddress(operations.DefaultL1ZkEVMSmartContract)
-	zkEvm, err := polygonzkevm.NewPolygonzkevm(zkEvmAddr, ethClient)
+	zkEvmAddr := common.HexToAddress(operations.DefaultL1Supernets2SmartContract)
+	zkEvm, err := supernets2.NewSupernets2(zkEvmAddr, ethClient)
 	require.NoError(t, err)
 
 	auth, err := operations.GetAuth(operations.DefaultSequencerPrivateKey, operations.DefaultL1ChainID)
@@ -142,7 +142,7 @@ func sendForcedBatch(t *testing.T, txs []byte, opsman *operations.Manager) (*sta
 	managerAddress, err := zkEvm.GlobalExitRootManager(&bind.CallOpts{Pending: false})
 	require.NoError(t, err)
 
-	manager, err := polygonzkevmglobalexitroot.NewPolygonzkevmglobalexitroot(managerAddress, ethClient)
+	manager, err := supernets2globalexitroot.NewSupernets2globalexitroot(managerAddress, ethClient)
 	require.NoError(t, err)
 
 	rootInContract, err := manager.GetLastGlobalExitRoot(&bind.CallOpts{Pending: false})
