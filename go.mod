@@ -3,14 +3,14 @@ module github.com/0xPolygon/supernets2-node
 go 1.19
 
 require (
-	github.com/0xPolygon/supernets2-data-availability v0.0.0-20230706174409-c13d92e1e0a5
-	github.com/0xPolygonHermez/zkevm-node v0.1.0-RC8.0.20230601153103-86d9fb808691
+	github.com/0xPolygon/supernets2-data-availability v0.0.0-20230707114052-4ace9ee1f2e3
 	github.com/didip/tollbooth/v6 v6.1.2
 	github.com/dop251/goja v0.0.0-20230122112309-96b1610dd4f7
 	github.com/ethereum/go-ethereum v1.12.0
 	github.com/go-git/go-billy/v5 v5.4.1
 	github.com/go-git/go-git/v5 v5.7.0
 	github.com/gobuffalo/packr/v2 v2.8.3
+	github.com/golang/protobuf v1.5.3
 	github.com/google/uuid v1.3.0
 	github.com/hermeznetwork/tracerr v0.3.2
 	github.com/iden3/go-iden3-crypto v0.0.15
@@ -70,7 +70,6 @@ require (
 	github.com/gofrs/flock v0.8.1 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
-	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/golang/snappy v0.0.5-0.20220116011046-fa5810519dcb // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect

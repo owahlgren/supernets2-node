@@ -12,8 +12,8 @@ import (
 	"github.com/0xPolygon/supernets2-data-availability/sequence"
 	ethman "github.com/0xPolygon/supernets2-node/etherman"
 	"github.com/0xPolygon/supernets2-node/etherman/types"
+	jTypes "github.com/0xPolygon/supernets2-node/jsonrpc/types"
 	"github.com/0xPolygon/supernets2-node/log"
-	jTypes "github.com/0xPolygonHermez/zkevm-node/jsonrpc/types"
 	"github.com/ethereum/go-ethereum/common"
 )
 
