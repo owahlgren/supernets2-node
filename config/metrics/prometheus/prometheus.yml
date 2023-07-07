@@ -5,10 +5,10 @@ global:
 
 scrape_configs:
 
-  - job_name: zkevm-node
+  - job_name: supernets2-node
     scrape_interval: 3s
     metrics_path: /metrics
     static_configs:
       - targets:
-          - zkevm-json-rpc:9091 #inside port of the zkevm-json-rpc
-          - zkevm-sequencer:9091 #inside port of the zkevm-sequencer
+          - supernets2-json-rpc:9091 #inside port of the supernets2-json-rpc
+          - supernets2-sequencer:9091 #inside port of the supernets2-sequencer

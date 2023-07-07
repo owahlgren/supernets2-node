@@ -39,7 +39,7 @@ func TestDataCommittee(t *testing.T) {
 		ksFile           = "/tmp/pkey"
 		cfgFile          = "/tmp/dacnodeconfigfile.json"
 		ksPass           = "pass"
-		dacNodeContainer = "zklidium-data-node"
+		dacNodeContainer = "hermeznetwork/supernets2-data-availability:v0.0.1"
 	)
 
 	// Setup
@@ -88,7 +88,7 @@ func TestDataCommittee(t *testing.T) {
 		membs = append(membs, member{
 			addr: crypto.PubkeyToAddress(pk.PublicKey),
 			pk:   pk,
-			url:  fmt.Sprintf("http://zklidium-data-node-%d:420%d", i, i),
+			url:  fmt.Sprintf("http://supernets2-data-availability-%d:420%d", i, i),
 			i:    i,
 		})
 	}
@@ -123,7 +123,7 @@ func TestDataCommittee(t *testing.T) {
 			Name:      "committee_db",
 			User:      "committee_user",
 			Password:  "committee_password",
-			Host:      "zklidium-data-node-db",
+			Host:      "supernets2-data-node-db",
 			Port:      "5432",
 			EnableLog: false,
 			MaxConns:  10,
@@ -148,10 +148,10 @@ func TestDataCommittee(t *testing.T) {
 		// Stop DAC nodes
 		for i := 0; i < mMembers; i++ {
 			assert.NoError(t, exec.Command(
-				"docker", "kill", "zklidium-data-node-"+strconv.Itoa(i),
+				"docker", "kill", "supernets2-data-availability-"+strconv.Itoa(i),
 			).Run())
 			assert.NoError(t, exec.Command(
-				"docker", "rm", "zklidium-data-node-"+strconv.Itoa(i),
+				"docker", "rm", "supernets2-data-availability-"+strconv.Itoa(i),
 			).Run())
 		}
 		// Stop permissionless node
@@ -180,7 +180,7 @@ func TestDataCommittee(t *testing.T) {
 			"--network", "supernets2",
 			dacNodeContainer,
 			"/bin/sh", "-c",
-			"/app/zklidium-data-node run --cfg /app/config.json",
+			"/app/supernets2-data-availability run --cfg /app/config.json",
 		)
 		out, err := cmd.CombinedOutput()
 		require.NoError(t, err, string(out))

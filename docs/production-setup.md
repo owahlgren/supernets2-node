@@ -49,11 +49,11 @@ Explained step by step:
    3. Edit the different configuration files
 8. Run the node: `docker compose --env-file $ZKEVM_CONFIG_DIR/.env -f $ZKEVM_DIR/$ZKEVM_NET/docker-compose.yml up -d`. You may need to run this command using `sudo` depending on your Docker setup.
 9. Make sure that all components are running: `docker compose --env-file $ZKEVM_CONFIG_DIR/.env -f $ZKEVM_DIR/$ZKEVM_NET/docker-compose.yml ps`. You should see the following containers:
-   1. zkevm-rpc
-   2. zkevm-sync
-   3. zkevm-state-db
-   4. zkevm-pool-db
-   5. zkevm-prover
+   1. supernets2-rpc
+   2. supernets2-sync
+   3. supernets2-state-db
+   4. supernets2-pool-db
+   5. supernets2-prover
 
 If everything has gone as expected you should be able to run queries to the JSON RPC at `http://localhost:8545`. For instance you can run the following query that fetches the latest synchronized L2 block, if you call this every few seconds, you should see the number increasing:
 
@@ -85,7 +85,7 @@ There are some fundamental changes that can be done towards the basic setup, in 
 In the basic setup, there are Postgres being instanciated as Docker containers. For better performance is recommended to:
 
 - Run dedicated instances for Postgres. To achieve this you will need to:
-  - Remove the Postgres services (`zkevm-pool-db` and `zkevm-state-db`) from the `docker-compose.yml`
+  - Remove the Postgres services (`supernets2-pool-db` and `supernets2-state-db`) from the `docker-compose.yml`
   - Instantiate Postgres elsewhere (note that you will have to create credentials and run some queries to make this work, following the config files and docker-compose should give a clear idea of what to do)
   - Update the `public.node.config.toml` to use the correct URI for both DBs
   - Update `prover.public.config.json` to use the correct URI for the state DB
@@ -98,5 +98,5 @@ Unlike the synchronizer, that needs to have only one instance running (having mo
 There can be as many instances of it as needed, but in order to not introduce other bottlenecks, it's important to consider the following:
 
 - Read replicas of the State DB should be used
-- Synchronizer should have an exclusive instance of `zkevm-prover`
-- JSON RPCs should scale in correlation with instances of `zkevm-prover`. The most obvious way to do so is by having a dedicated `zkevm-prover` for each `zkevm-rpc`. But depending on the payload of your solution it could be worth to have `1 zkevm-rpc : many zkevm-prover` or `many zkevm-rpc : 1 zkevm-prover`, ... For reference, the `zkevm-prover` implements the EVM, and therefore will be heavily used when calling endpoints such as `eth_call`. On the other hand, there are other endpoints that relay on the `zkevm-state-db`
+- Synchronizer should have an exclusive instance of `supernets2-prover`
+- JSON RPCs should scale in correlation with instances of `supernets2-prover`. The most obvious way to do so is by having a dedicated `supernets2-prover` for each `supernets2-rpc`. But depending on the payload of your solution it could be worth to have `1 supernets2-rpc : many supernets2-prover` or `many supernets2-rpc : 1 supernets2-prover`, ... For reference, the `supernets2-prover` implements the EVM, and therefore will be heavily used when calling endpoints such as `eth_call`. On the other hand, there are other endpoints that relay on the `supernets2-state-db`

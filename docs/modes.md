@@ -24,7 +24,7 @@ Use the default [public config file](https://github.com/0xPolygon/supernets2-nod
 ```toml
 [RPC]
 ...
-SequencerNodeURI = "https://public.zkevm-test.net:2083"
+SequencerNodeURI = "https://public.supernets2-test.net:2083"
 ```
 
 Same goes for the Prover Config ([prover-config.json](https://github.com/0xPolygon/supernets2-node/blob/develop/config/environments/public/public.prover.config.json)):
@@ -45,9 +45,9 @@ Additionally, the [`production-setup.md`](./production-setup.md) goes through th
 
 ### Docker services:
 
-- `zkevm-sync`
-- `zkevm-prover` (`Merkle Tree`, `Executor`)
-- `zkevm-rpc` 
+- `supernets2-sync`
+- `supernets2-prover` (`Merkle Tree`, `Executor`)
+- `supernets2-rpc` 
 - Databases
 
 ## If you want to create Proofs:
@@ -96,7 +96,7 @@ For *only* Prover Config (`only-prover-config.json`):
 
 ### Docker services:
 
-- `zkevm-sync`
-- `zkevm-prover` (`Prover`, `Merkle Tree`, `Executor`)
-- `zkevm-aggregator` 
+- `supernets2-sync`
+- `supernets2-prover` (`Prover`, `Merkle Tree`, `Executor`)
+- `supernets2-aggregator` 
 - Databases

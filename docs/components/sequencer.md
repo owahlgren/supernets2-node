@@ -15,13 +15,13 @@ docker pull hermeznetwork/supernets2-node
 To orchestrate multiple deployments of the different ZKEVM Node components, a `docker-compose.yaml` file for Docker Compose can be used:
 
 ```yaml
-  zkevm-sequencer:
-    container_name: zkevm-sequencer
-    image: zkevm-node
+  supernets2-sequencer:
+    container_name: supernets2-sequencer
+    image: supernets2-node
     command:
         - "/bin/sh"
         - "-c"
-        - "/app/zkevm-node run --genesis /app/genesis.json --cfg /app/config.toml --components sequencer"
+        - "/app/supernets2-node run --genesis /app/genesis.json --cfg /app/config.toml --components sequencer"
 ```
 
 The container alone needs some parameters configured, access to certain configuration files and the appropriate ports exposed.

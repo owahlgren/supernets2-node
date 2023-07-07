@@ -1,27 +1,27 @@
 DOCKERCOMPOSE := docker-compose -f docker-compose.yml
-DOCKERCOMPOSEAPPSEQ := zkevm-sequencer
-DOCKERCOMPOSEAPPSEQSENDER := zkevm-sequence-sender
-DOCKERCOMPOSEAPPL2GASP := zkevm-l2gaspricer
-DOCKERCOMPOSEAPPAGG := zkevm-aggregator
-DOCKERCOMPOSEAPPRPC := zkevm-json-rpc
-DOCKERCOMPOSEAPPSYNC := zkevm-sync
-DOCKERCOMPOSEAPPETHTXMANAGER := zkevm-eth-tx-manager
-DOCKERCOMPOSESTATEDB := zkevm-state-db
-DOCKERCOMPOSEPOOLDB := zkevm-pool-db
-DOCKERCOMPOSEEVENTDB := zkevm-event-db
-DOCKERCOMPOSENETWORK := zkevm-mock-l1-network
-DOCKERCOMPOSEEXPLORERL1 := zkevm-explorer-l1
-DOCKERCOMPOSEEXPLORERL1DB := zkevm-explorer-l1-db
-DOCKERCOMPOSEEXPLORERL2 := zkevm-explorer-l2
-DOCKERCOMPOSEEXPLORERL2DB := zkevm-explorer-l2-db
-DOCKERCOMPOSEEXPLORERRPC := zkevm-explorer-json-rpc
-DOCKERCOMPOSEZKPROVER := zkevm-prover
-DOCKERCOMPOSEPERMISSIONLESSDB := zkevm-permissionless-db
-DOCKERCOMPOSEPERMISSIONLESSNODE := zkevm-permissionless-node
-DOCKERCOMPOSEPERMISSIONLESSNODEDAC := zkevm-permissionless-node-forced-DAC
-DOCKERCOMPOSEPERMISSIONLESSZKPROVER := zkevm-permissionless-prover
-DOCKERCOMPOSENODEAPPROVE := zkevm-approve
-DOCKERCOMPOSEMETRICS := zkevm-metrics
+DOCKERCOMPOSEAPPSEQ := supernets2-sequencer
+DOCKERCOMPOSEAPPSEQSENDER := supernets2-sequence-sender
+DOCKERCOMPOSEAPPL2GASP := supernets2-l2gaspricer
+DOCKERCOMPOSEAPPAGG := supernets2-aggregator
+DOCKERCOMPOSEAPPRPC := supernets2-json-rpc
+DOCKERCOMPOSEAPPSYNC := supernets2-sync
+DOCKERCOMPOSEAPPETHTXMANAGER := supernets2-eth-tx-manager
+DOCKERCOMPOSESTATEDB := supernets2-state-db
+DOCKERCOMPOSEPOOLDB := supernets2-pool-db
+DOCKERCOMPOSEEVENTDB := supernets2-event-db
+DOCKERCOMPOSENETWORK := supernets2-mock-l1-network
+DOCKERCOMPOSEEXPLORERL1 := supernets2-explorer-l1
+DOCKERCOMPOSEEXPLORERL1DB := supernets2-explorer-l1-db
+DOCKERCOMPOSEEXPLORERL2 := supernets2-explorer-l2
+DOCKERCOMPOSEEXPLORERL2DB := supernets2-explorer-l2-db
+DOCKERCOMPOSEEXPLORERRPC := supernets2-explorer-json-rpc
+DOCKERCOMPOSEZKPROVER := supernets2-prover
+DOCKERCOMPOSEPERMISSIONLESSDB := supernets2-permissionless-db
+DOCKERCOMPOSEPERMISSIONLESSNODE := supernets2-permissionless-node
+DOCKERCOMPOSEPERMISSIONLESSNODEDAC := supernets2-permissionless-node-forced-DAC
+DOCKERCOMPOSEPERMISSIONLESSZKPROVER := supernets2-permissionless-prover
+DOCKERCOMPOSENODEAPPROVE := supernets2-approve
+DOCKERCOMPOSEMETRICS := supernets2-metrics
 DOCKERCOMPOSEGRAFANA := grafana
 
 RUNSTATEDB := $(DOCKERCOMPOSE) up -d $(DOCKERCOMPOSESTATEDB)
@@ -80,8 +80,8 @@ STOPPERMISSIONLESSNODE := $(DOCKERCOMPOSE) stop $(DOCKERCOMPOSEPERMISSIONLESSNOD
 STOPPERMISSIONLESSNODEDAC := $(DOCKERCOMPOSE) stop $(DOCKERCOMPOSEPERMISSIONLESSNODEDAC) && $(DOCKERCOMPOSE) rm -f $(DOCKERCOMPOSEPERMISSIONLESSNODEDAC)
 STOPPERMISSIONLESSZKPROVER := $(DOCKERCOMPOSE) stop $(DOCKERCOMPOSEPERMISSIONLESSZKPROVER) && $(DOCKERCOMPOSE) rm -f $(DOCKERCOMPOSEPERMISSIONLESSZKPROVER)
 
-RUNDACDB := docker compose up -d zklidium-data-node-db
-STOPDACDB := docker compose stop zklidium-data-node-db && docker compose rm -f zklidium-data-node-db
+RUNDACDB := docker compose up -d supernets2-data-node-db
+STOPDACDB := docker compose stop supernets2-data-node-db && docker compose rm -f supernets2-data-node-db
 
 STOPAPPROVE := $(DOCKERCOMPOSE) stop $(DOCKERCOMPOSENODEAPPROVE) && $(DOCKERCOMPOSE) rm -f $(DOCKERCOMPOSENODEAPPROVE)
 
@@ -226,8 +226,8 @@ test-e2e-group-11: stop ## Runs group 11 e2e tests checking race conditions
 	trap '$(STOP)' EXIT; MallocNanoZone=0 go test -count=1 -race -v -p 1 -timeout 2000s ../ci/e2e-group11/...
 
 
-.PHONY: test-e2e-group-zklidium
-test-e2e-group-zklidium: stop ## Runs zklidium e2e tests checking race conditions
+.PHONY: test-e2e-group-supernets2-1
+test-e2e-group-supernets2-1: stop ## Runs supernets2-1 e2e tests checking race conditions
 	$(RUNSTATEDB)
 	$(RUNPOOLDB)
 	$(RUNEVENTDB)
@@ -235,7 +235,7 @@ test-e2e-group-zklidium: stop ## Runs zklidium e2e tests checking race condition
 	$(RUNZKPROVER)
 	docker ps -a
 	docker logs $(DOCKERCOMPOSEZKPROVER)
-	trap '$(STOP)' EXIT; MallocNanoZone=0 go test -count=1 -race -v -p 1 -timeout 2000s ../ci/e2e-zklidium/...
+	trap '$(STOP)' EXIT; MallocNanoZone=0 go test -count=1 -race -v -p 1 -timeout 2000s ../ci/e2e-group-supernets2-1/...
 
 .PHONY: benchmark-sequencer-eth-transfers
 benchmark-sequencer-eth-transfers: stop
@@ -554,7 +554,7 @@ generate-mocks: ## Generates mocks for the tests, using mockery tool
 	export "GOROOT=$$(go env GOROOT)" && $$(go env GOPATH)/bin/mockery --name=stateInterface --dir=../synchronizer --output=../synchronizer --outpkg=synchronizer --structname=stateMock --filename=mock_state.go
 	export "GOROOT=$$(go env GOROOT)" && $$(go env GOPATH)/bin/mockery --name=ethTxManager --dir=../synchronizer --output=../synchronizer --outpkg=synchronizer --structname=ethTxManagerMock --filename=mock_ethtxmanager.go
 	export "GOROOT=$$(go env GOROOT)" && $$(go env GOPATH)/bin/mockery --name=poolInterface --dir=../synchronizer --output=../synchronizer --outpkg=synchronizer --structname=poolMock --filename=mock_pool.go
-	export "GOROOT=$$(go env GOROOT)" && $$(go env GOPATH)/bin/mockery --name=zkEVMClientInterface --dir=../synchronizer --output=../synchronizer --outpkg=synchronizer --structname=zkEVMClientMock --filename=mock_zkevmclient.go
+	export "GOROOT=$$(go env GOROOT)" && $$(go env GOPATH)/bin/mockery --name=zkEVMClientInterface --dir=../synchronizer --output=../synchronizer --outpkg=synchronizer --structname=zkEVMClientMock --filename=mock_supernets2client.go
 	export "GOROOT=$$(go env GOROOT)" && $$(go env GOPATH)/bin/mockery --name=Tx --srcpkg=github.com/jackc/pgx/v4 --output=../synchronizer --outpkg=synchronizer --structname=dbTxMock --filename=mock_dbtx.go
 	export "GOROOT=$$(go env GOROOT)" && $$(go env GOPATH)/bin/mockery --name=ClientFactoryInterface --srcpkg=github.com/0xPolygon/supernets2-data-availability/client --output=../synchronizer --outpkg=synchronizer --structname=dataCommitteeClientFactoryMock --filename=mock_datacommitteeclientfactory.go
 	export "GOROOT=$$(go env GOROOT)" && $$(go env GOPATH)/bin/mockery --name=ClientInterface --srcpkg=github.com/0xPolygon/supernets2-data-availability/client --output=../synchronizer --outpkg=synchronizer --structname=dataCommitteeClientMock --filename=mock_datacommitteeclient.go
