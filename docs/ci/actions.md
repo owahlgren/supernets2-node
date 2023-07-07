@@ -22,7 +22,7 @@ PR opened and pushing changes to PRs.
 ## push-docker-develop
 
 Pushes docker images to docker hub, the images pushed are:
-* `hermeznetwork/zkevm-node:develop`
+* `hermeznetwork/supernets2-node:develop`
 
 ### When is executed
 
@@ -31,7 +31,7 @@ Changes pushed to the `develop` branch.
 ## push-docker
 
 Pushes docker images to docker hub, the images pushed are:
-* `hermeznetwork/zkevm-node:latest`
+* `hermeznetwork/supernets2-node:latest`
 
 ### When is executed
 
@@ -60,7 +60,7 @@ PR opened and pushing changes to PRs. There are two variants, `trusted` and
 
 ## updatedeps
 
-The `zkevm-node` repo requires some external resources for working. We call
+The `supernets2-node` repo requires some external resources for working. We call
 these resources custom dependencies (as opposed to the golang packages required
 by the code).
 
@@ -80,7 +80,7 @@ for changes the client/server golang code is generated from them.
 
 With all the potential changes we create a new PR and the tests are run on it,
 so that we can review and eventually approve the changes to be included in the
-`zkevm-node` repo.
+`supernets2-node` repo.
 
 ### When is executed
 
@@ -93,5 +93,5 @@ It runs as an scheduled action, every 3 hours.
 [dependencies package]: ../../scripts/cmd/dependencies
 [three types of custom dependencies]: ../../scripts/cmd/dependencies.go
 [docker compose file]: ../../docker-compose.yml
-[comms protocol repo]: https://github.com/0xPolygonHermez/zkevm-comms-protocol/
-[test vectors repo]: https://github.com/0xPolygonHermez/zkevm-testvectors
+[comms protocol repo]: https://github.com/0xPolygonHermez/supernets2-comms-protocol/
+[test vectors repo]: https://github.com/0xPolygonHermez/supernets2-testvectors

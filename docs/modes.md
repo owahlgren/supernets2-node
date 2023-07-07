@@ -19,15 +19,15 @@ By default the config files found in the repository will spin up the Node in JSO
 
 This will syncronize with the Trusted Sequencer (run by Polygon).
 
-Use the default [public config file](https://github.com/0xPolygonHermez/zkevm-node/blob/develop/config/environments/public/public.node.config.toml), and make sure the following values are set to:
+Use the default [public config file](https://github.com/0xPolygon/supernets2-node/blob/develop/config/environments/public/public.node.config.toml), and make sure the following values are set to:
 
 ```toml
 [RPC]
 ...
-SequencerNodeURI = "https://public.zkevm-test.net:2083"
+SequencerNodeURI = "https://public.supernets2-test.net:2083"
 ```
 
-Same goes for the Prover Config ([prover-config.json](https://github.com/0xPolygonHermez/zkevm-node/blob/develop/config/environments/public/public.prover.config.json)):
+Same goes for the Prover Config ([prover-config.json](https://github.com/0xPolygon/supernets2-node/blob/develop/config/environments/public/public.prover.config.json)):
 
 ```json
 {
@@ -45,9 +45,9 @@ Additionally, the [`production-setup.md`](./production-setup.md) goes through th
 
 ### Docker services:
 
-- `zkevm-sync`
-- `zkevm-prover` (`Merkle Tree`, `Executor`)
-- `zkevm-rpc` 
+- `supernets2-sync`
+- `supernets2-prover` (`Merkle Tree`, `Executor`)
+- `supernets2-rpc` 
 - Databases
 
 ## If you want to create Proofs:
@@ -78,7 +78,7 @@ Machine 1:
 
 #### Machine 1
 
-Use default [prover config](https://github.com/0xPolygonHermez/zkevm-node/blob/develop/config/environments/public/public.prover.config.json) but change the following values (`runProverServer` set to true, rest false):
+Use default [prover config](https://github.com/0xPolygon/supernets2-node/blob/develop/config/environments/public/public.prover.config.json) but change the following values (`runProverServer` set to true, rest false):
 
 For *only* Prover Config (`only-prover-config.json`):
 
@@ -96,7 +96,7 @@ For *only* Prover Config (`only-prover-config.json`):
 
 ### Docker services:
 
-- `zkevm-sync`
-- `zkevm-prover` (`Prover`, `Merkle Tree`, `Executor`)
-- `zkevm-aggregator` 
+- `supernets2-sync`
+- `supernets2-prover` (`Prover`, `Merkle Tree`, `Executor`)
+- `supernets2-aggregator` 
 - Databases

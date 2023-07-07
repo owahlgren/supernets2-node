@@ -9,11 +9,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/0xPolygonHermez/zkevm-node/aggregator"
-	"github.com/0xPolygonHermez/zkevm-node/config"
-	"github.com/0xPolygonHermez/zkevm-node/config/types"
-	"github.com/0xPolygonHermez/zkevm-node/log"
-	"github.com/0xPolygonHermez/zkevm-node/pricegetter"
+	"github.com/0xPolygon/supernets2-node/aggregator"
+	"github.com/0xPolygon/supernets2-node/config"
+	"github.com/0xPolygon/supernets2-node/config/types"
+	"github.com/0xPolygon/supernets2-node/log"
+	"github.com/0xPolygon/supernets2-node/pricegetter"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -206,8 +206,8 @@ func Test_Defaults(t *testing.T) {
 			expectedValue: types.NewDuration(5 * time.Second),
 		},
 		{
-			path:          "SequenceSender.MaxTxSizeForL1",
-			expectedValue: uint64(131072),
+			path:          "SequenceSender.MaxBatchesForL1",
+			expectedValue: uint64(1000),
 		},
 		{
 			path:          "Etherman.URL",
@@ -218,7 +218,7 @@ func Test_Defaults(t *testing.T) {
 			expectedValue: uint64(5),
 		},
 		{
-			path:          "NetworkConfig.L1Config.ZkEVMAddr",
+			path:          "NetworkConfig.L1Config.Supernets2Addr",
 			expectedValue: common.HexToAddress("0xa997cfD539E703921fD1e3Cf25b4c241a27a4c7A"),
 		},
 		{
@@ -263,7 +263,7 @@ func Test_Defaults(t *testing.T) {
 		},
 		{
 			path:          "MTClient.URI",
-			expectedValue: "zkevm-prover:50061",
+			expectedValue: "supernets2-prover:50061",
 		},
 		{
 			path:          "StateDB.User",
@@ -279,7 +279,7 @@ func Test_Defaults(t *testing.T) {
 		},
 		{
 			path:          "StateDB.Host",
-			expectedValue: "zkevm-state-db",
+			expectedValue: "supernets2-state-db",
 		},
 		{
 			path:          "StateDB.Port",
@@ -328,7 +328,7 @@ func Test_Defaults(t *testing.T) {
 		},
 		{
 			path:          "Pool.DB.Host",
-			expectedValue: "zkevm-pool-db",
+			expectedValue: "supernets2-pool-db",
 		},
 		{
 			path:          "Pool.DB.Port",
@@ -384,7 +384,7 @@ func Test_Defaults(t *testing.T) {
 		},
 		{
 			path:          "Executor.URI",
-			expectedValue: "zkevm-prover:50071",
+			expectedValue: "supernets2-prover:50071",
 		},
 		{
 			path:          "Metrics.Host",
@@ -484,9 +484,9 @@ func TestEnvVarArrayDecoding(t *testing.T) {
 	flagSet.String(config.FlagNetwork, "testnet", "")
 	ctx := cli.NewContext(cli.NewApp(), flagSet, nil)
 
-	os.Setenv("ZKEVM_NODE_LOG_OUTPUTS", "a,b,c")
+	os.Setenv("SUPERNETS2_NODE_LOG_OUTPUTS", "a,b,c")
 	defer func() {
-		os.Unsetenv("ZKEVM_NODE_LOG_OUTPUTS")
+		os.Unsetenv("SUPERNETS2_NODE_LOG_OUTPUTS")
 	}()
 
 	cfg, err := config.Load(ctx)

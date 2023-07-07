@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/0xPolygonHermez/zkevm-node/log"
+	"github.com/0xPolygon/supernets2-node/log"
 	"github.com/urfave/cli/v2"
 )
 
@@ -13,7 +13,7 @@ const (
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "zkevm-node-scripts"
+	app.Name = "supernets2-node-scripts"
 	app.Commands = []*cli.Command{
 		{
 			Name:   "updatedeps",

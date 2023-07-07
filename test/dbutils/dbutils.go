@@ -3,21 +3,21 @@ package dbutils
 import (
 	"fmt"
 
-	"github.com/0xPolygonHermez/zkevm-node/db"
-	"github.com/0xPolygonHermez/zkevm-node/log"
-	"github.com/0xPolygonHermez/zkevm-node/test/testutils"
+	"github.com/0xPolygon/supernets2-node/db"
+	"github.com/0xPolygon/supernets2-node/log"
+	"github.com/0xPolygon/supernets2-node/test/testutils"
 )
 
 // InitOrResetState will initializes the State db running the migrations or
 // will reset all the known data and rerun the migrations
 func InitOrResetState(cfg db.Config) error {
-	return initOrReset(cfg, "zkevm-state-db")
+	return initOrReset(cfg, "supernets2-state-db")
 }
 
 // InitOrResetPool will initializes the Pool db running the migrations or
 // will reset all the known data and rerun the migrations
 func InitOrResetPool(cfg db.Config) error {
-	return initOrReset(cfg, "zkevm-pool-db")
+	return initOrReset(cfg, "supernets2-pool-db")
 }
 
 // initOrReset will initializes the db running the migrations or

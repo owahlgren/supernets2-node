@@ -573,14 +573,14 @@
         "current": {
           "selected": true,
           "text": [
-            "zkevm-json-rpc",
-            "zkevm-pool-db",
-            "zkevm-sequencer"
+            "supernets2-json-rpc",
+            "supernets2-pool-db",
+            "supernets2-sequencer"
           ],
           "value": [
-            "zkevm-json-rpc",
-            "zkevm-pool-db",
-            "zkevm-sequencer"
+            "supernets2-json-rpc",
+            "supernets2-pool-db",
+            "supernets2-sequencer"
           ]
         },
         "datasource": {

@@ -5,7 +5,7 @@ package mocks
 import (
 	context "context"
 
-	pb "github.com/0xPolygonHermez/zkevm-node/aggregator/pb"
+	pb "github.com/0xPolygon/supernets2-node/aggregator/pb"
 	mock "github.com/stretchr/testify/mock"
 )
 

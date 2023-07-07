@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/0xPolygonHermez/zkevm-node/hex"
+	"github.com/0xPolygon/supernets2-node/hex"
 	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
 )

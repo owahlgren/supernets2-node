@@ -1,4 +1,4 @@
-package zkevm
+package supernets2
 
 import (
 	"fmt"

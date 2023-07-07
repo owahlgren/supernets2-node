@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/0xPolygonHermez/zkevm-node/log"
-	"github.com/0xPolygonHermez/zkevm-node/merkletree/pb"
+	"github.com/0xPolygon/supernets2-node/log"
+	"github.com/0xPolygon/supernets2-node/merkletree/pb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )

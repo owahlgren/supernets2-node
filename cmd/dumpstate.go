@@ -9,9 +9,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/0xPolygonHermez/zkevm-node/config"
-	"github.com/0xPolygonHermez/zkevm-node/db"
-	"github.com/0xPolygonHermez/zkevm-node/state"
+	"github.com/0xPolygon/supernets2-node/config"
+	"github.com/0xPolygon/supernets2-node/db"
+	"github.com/0xPolygon/supernets2-node/state"
 	"github.com/urfave/cli/v2"
 )
 

@@ -12,13 +12,13 @@ endif
 GOBASE := $(shell pwd)
 GOBIN := $(GOBASE)/dist
 GOENVVARS := GOBIN=$(GOBIN) CGO_ENABLED=0 GOOS=linux GOARCH=$(ARCH)
-GOBINARY := zkevm-node
+GOBINARY := supernets2-node
 GOCMD := $(GOBASE)/cmd
 
-LDFLAGS += -X 'github.com/0xPolygonHermez/zkevm-node.Version=$(VERSION)'
-LDFLAGS += -X 'github.com/0xPolygonHermez/zkevm-node.GitRev=$(GITREV)'
-LDFLAGS += -X 'github.com/0xPolygonHermez/zkevm-node.GitBranch=$(GITBRANCH)'
-LDFLAGS += -X 'github.com/0xPolygonHermez/zkevm-node.BuildDate=$(DATE)'
+LDFLAGS += -X 'github.com/0xPolygon/supernets2-node.Version=$(VERSION)'
+LDFLAGS += -X 'github.com/0xPolygon/supernets2-node.GitRev=$(GITREV)'
+LDFLAGS += -X 'github.com/0xPolygon/supernets2-node.GitBranch=$(GITBRANCH)'
+LDFLAGS += -X 'github.com/0xPolygon/supernets2-node.BuildDate=$(DATE)'
 
 .PHONY: build
 build: ## Builds the binary locally into ./dist
@@ -26,21 +26,21 @@ build: ## Builds the binary locally into ./dist
 
 .PHONY: build-docker
 build-docker: ## Builds a docker image with the node binary
-	docker build -t zkevm-node -f ./Dockerfile .
+	docker build -t supernets2-node -f ./Dockerfile .
 
 .PHONY: build-docker-nc
 build-docker-nc: ## Builds a docker image with the node binary - but without build cache
-	docker build --no-cache=true -t zkevm-node -f ./Dockerfile .
+	docker build --no-cache=true -t supernets2-node -f ./Dockerfile .
 
 .PHONY: run-rpc
 run-rpc: ## Runs all the services need to run a local zkEMV RPC node
-	docker-compose up -d zkevm-state-db zkevm-pool-db
+	docker-compose up -d supernets2-state-db supernets2-pool-db
 	sleep 2
-	docker-compose up -d zkevm-prover
+	docker-compose up -d supernets2-prover
 	sleep 5
-	docker-compose up -d zkevm-sync
+	docker-compose up -d supernets2-sync
 	sleep 2
-	docker-compose up -d zkevm-rpc
+	docker-compose up -d supernets2-rpc
 
 .PHONY: stop
 stop: ## Stops all services

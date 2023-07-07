@@ -10,16 +10,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/0xPolygonHermez/zkevm-node/db"
-	"github.com/0xPolygonHermez/zkevm-node/event"
-	"github.com/0xPolygonHermez/zkevm-node/event/nileventstorage"
-	"github.com/0xPolygonHermez/zkevm-node/log"
-	"github.com/0xPolygonHermez/zkevm-node/merkletree"
-	"github.com/0xPolygonHermez/zkevm-node/state"
-	"github.com/0xPolygonHermez/zkevm-node/state/runtime/executor"
-	"github.com/0xPolygonHermez/zkevm-node/test/constants"
-	"github.com/0xPolygonHermez/zkevm-node/test/dbutils"
-	"github.com/0xPolygonHermez/zkevm-node/test/testutils"
+	"github.com/0xPolygon/supernets2-node/db"
+	"github.com/0xPolygon/supernets2-node/event"
+	"github.com/0xPolygon/supernets2-node/event/nileventstorage"
+	"github.com/0xPolygon/supernets2-node/log"
+	"github.com/0xPolygon/supernets2-node/merkletree"
+	"github.com/0xPolygon/supernets2-node/state"
+	"github.com/0xPolygon/supernets2-node/state/runtime/executor"
+	"github.com/0xPolygon/supernets2-node/test/constants"
+	"github.com/0xPolygon/supernets2-node/test/dbutils"
+	"github.com/0xPolygon/supernets2-node/test/testutils"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -32,14 +32,15 @@ const (
 
 // Public shared
 const (
-	DefaultSequencerAddress             = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
-	DefaultSequencerPrivateKey          = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
-	DefaultSequencerBalance             = 400000
-	DefaultMaxCumulativeGasUsed         = 800000
-	DefaultL1ZkEVMSmartContract         = "0x610178dA211FEF7D417bC0e6FeD39F05609AD788"
-	DefaultL1NetworkURL                 = "http://localhost:8545"
-	DefaultL1NetworkWebSocketURL        = "ws://localhost:8546"
-	DefaultL1ChainID             uint64 = 1337
+	DefaultSequencerAddress                 = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+	DefaultSequencerPrivateKey              = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+	DefaultSequencerBalance                 = 400000
+	DefaultMaxCumulativeGasUsed             = 800000
+	DefaultL1Supernets2SmartContract        = "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82"
+	DefaultL1DataCommitteeContract          = "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6"
+	DefaultL1NetworkURL                     = "http://localhost:8545"
+	DefaultL1NetworkWebSocketURL            = "ws://localhost:8546"
+	DefaultL1ChainID                 uint64 = 1337
 
 	DefaultL2NetworkURL                 = "http://localhost:8123"
 	PermissionlessL2NetworkURL          = "http://localhost:8125"
@@ -50,7 +51,7 @@ const (
 
 	DefaultWaitPeriodSendSequence                          = "15s"
 	DefaultLastBatchVirtualizationTimeMaxWaitPeriod        = "10s"
-	DefaultMaxTxSizeForL1                           uint64 = 131072
+	MaxBatchesForL1                                 uint64 = 1
 )
 
 var (
@@ -67,7 +68,7 @@ var (
 type SequenceSenderConfig struct {
 	WaitPeriodSendSequence                   string
 	LastBatchVirtualizationTimeMaxWaitPeriod string
-	MaxTxSizeForL1                           uint64
+	MaxBatchesForL1                          uint64
 	SenderAddress                            string
 	PrivateKey                               string
 }
@@ -494,6 +495,26 @@ func (m *Manager) StartTrustedAndPermissionlessNode() error {
 	return StartComponent("permissionless", nodeUpCondition)
 }
 
+// StartDACDB starts the data availability node DB
+func (m *Manager) StartDACDB() error {
+	return StartComponent("dac-db", func() (bool, error) { return true, nil })
+}
+
+// StopDACDB stops the data availability node DB
+func (m *Manager) StopDACDB() error {
+	return StopComponent("dac-db")
+}
+
+// StartPermissionlessNodeForcedToSYncThroughDAC starts a permissionless node that is froced to sync through the DAC
+func (m *Manager) StartPermissionlessNodeForcedToSYncThroughDAC() error {
+	return StartComponent("permissionless-dac", func() (bool, error) { return true, nil })
+}
+
+// StopPermissionlessNodeForcedToSYncThroughDAC stops the permissionless node that is froced to sync through the DAC
+func (m *Manager) StopPermissionlessNodeForcedToSYncThroughDAC() error {
+	return StopComponent("permissionless-dac")
+}
+
 // ApproveMatic runs the approving matic command
 func ApproveMatic() error {
 	return StartComponent("approve-matic")
@@ -569,7 +590,7 @@ func GetDefaultOperationsConfig() *Config {
 		SequenceSender: &SequenceSenderConfig{
 			WaitPeriodSendSequence:                   DefaultWaitPeriodSendSequence,
 			LastBatchVirtualizationTimeMaxWaitPeriod: DefaultWaitPeriodSendSequence,
-			MaxTxSizeForL1:                           DefaultMaxTxSizeForL1,
+			MaxBatchesForL1:                          MaxBatchesForL1,
 			SenderAddress:                            DefaultSequencerAddress,
 			PrivateKey:                               DefaultSequencerPrivateKey},
 	}

@@ -5,10 +5,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/0xPolygonHermez/zkevm-node/hex"
-	"github.com/0xPolygonHermez/zkevm-node/jsonrpc/types"
-	"github.com/0xPolygonHermez/zkevm-node/log"
-	"github.com/0xPolygonHermez/zkevm-node/state"
+	"github.com/0xPolygon/supernets2-node/hex"
+	"github.com/0xPolygon/supernets2-node/jsonrpc/types"
+	"github.com/0xPolygon/supernets2-node/log"
+	"github.com/0xPolygon/supernets2-node/state"
 	ethTypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/jackc/pgx/v4"
 )
@@ -168,7 +168,11 @@ func (z *ZKEVMEndpoints) GetBatchByNumber(batchNumber types.BatchNumber, fullTx 
 		}
 
 		batch.Transactions = txs
-		rpcBatch := types.NewBatch(batch, virtualBatch, verifiedBatch, receipts, fullTx, ger)
+		rpcBatch, err := types.NewBatch(batch, virtualBatch, verifiedBatch, receipts, fullTx, ger)
+		if err != nil {
+			return RPCErrorResponse(types.DefaultErrorCode, fmt.Sprintf("couldn't generate new batch for number %v", batchNumber), err)
+		}
+
 		return rpcBatch, nil
 	})
 }

@@ -11,7 +11,7 @@ This module syncs data between the Layer 1 Ethereum network and ZKEVM L2 network
 The preferred way to run the ZKEVM Synchronizer component is via Docker and Docker Compose.
 
 ```bash
-docker pull hermeznetwork/zkevm-node
+docker pull hermeznetwork/supernets2-node
 ```
 
 To orchestrate multiple deployments of the different ZKEVM Node components, a `docker-compose.yaml` file for Docker Compose can be used:
@@ -19,13 +19,13 @@ To orchestrate multiple deployments of the different ZKEVM Node components, a `d
 **THIS STEP IS MANDATORY ON ALL DEPLOYMENT MODES**
 
 ```yaml
-  zkevm-sync:
-    container_name: zkevm-sync
-    image: zkevm-node
+  supernets2-sync:
+    container_name: supernets2-sync
+    image: supernets2-node
     command:
         - "/bin/sh"
         - "-c"
-        - "/app/zkevm-node run --genesis /app/genesis.json --cfg /app/config.toml --components synchronizer"
+        - "/app/supernets2-node run --genesis /app/genesis.json --cfg /app/config.toml --components synchronizer"
 ```
 
 The container alone needs some parameters configured, access to certain configuration files and the appropriate ports exposed.

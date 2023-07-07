@@ -3,8 +3,8 @@ package jsonrpc
 import (
 	"strconv"
 
-	"github.com/0xPolygonHermez/zkevm-node/encoding"
-	"github.com/0xPolygonHermez/zkevm-node/jsonrpc/types"
+	"github.com/0xPolygon/supernets2-node/encoding"
+	"github.com/0xPolygon/supernets2-node/jsonrpc/types"
 )
 
 // NetEndpoints contains implementations for the "net" RPC endpoints

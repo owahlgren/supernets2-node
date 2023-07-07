@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/0xPolygonHermez/zkevm-node/log"
-	"github.com/0xPolygonHermez/zkevm-node/state"
-	"github.com/0xPolygonHermez/zkevm-node/test/operations"
+	"github.com/0xPolygon/supernets2-node/log"
+	"github.com/0xPolygon/supernets2-node/state"
+	"github.com/0xPolygon/supernets2-node/test/operations"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"

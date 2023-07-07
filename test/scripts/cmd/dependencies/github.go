@@ -4,7 +4,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/0xPolygonHermez/zkevm-node/log"
+	"github.com/0xPolygon/supernets2-node/log"
 	"github.com/go-git/go-billy/v5"
 	"github.com/go-git/go-billy/v5/helper/chroot"
 	"github.com/go-git/go-git/v5"
@@ -31,7 +31,7 @@ func newGithubManager(aferoFs afero.Fs, sshKey, token string) *githubManager {
 }
 
 func (gm *githubManager) cloneTargetRepo(repoURL string) (string, error) {
-	tmpdir, err := afero.TempDir(gm.aferoFs, "", "zkevm-node-deps")
+	tmpdir, err := afero.TempDir(gm.aferoFs, "", "supernets2-node-deps")
 	if err != nil {
 		return "", err
 	}

@@ -1,8 +1,8 @@
 package pool
 
 import (
-	"github.com/0xPolygonHermez/zkevm-node/config/types"
-	"github.com/0xPolygonHermez/zkevm-node/db"
+	"github.com/0xPolygon/supernets2-node/config/types"
+	"github.com/0xPolygon/supernets2-node/db"
 )
 
 // Config is the pool configuration

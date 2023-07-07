@@ -6,8 +6,8 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/0xPolygonHermez/zkevm-node/hex"
-	"github.com/0xPolygonHermez/zkevm-node/merkletree/pb"
+	"github.com/0xPolygon/supernets2-node/hex"
+	"github.com/0xPolygon/supernets2-node/merkletree/pb"
 	"github.com/ethereum/go-ethereum/common"
 	"google.golang.org/protobuf/types/known/emptypb"
 )

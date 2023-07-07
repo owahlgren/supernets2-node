@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/0xPolygonHermez/zkevm-node/hex"
-	"github.com/0xPolygonHermez/zkevm-node/state"
+	"github.com/0xPolygon/supernets2-node/hex"
+	"github.com/0xPolygon/supernets2-node/state"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/jackc/pgx/v4"
@@ -348,8 +348,16 @@ func NewBatch(
 	receipts []types.Receipt,
 	fullTx bool,
 	ger *state.GlobalExitRoot,
-) *Batch {
+) (*Batch, error) {
 	batchL2Data := batch.BatchL2Data
+	if batchL2Data == nil {
+		batchL2dataFromTxs, err := state.EncodeTransactions(batch.Transactions)
+		if err != nil {
+			return nil, fmt.Errorf("error encoding txs into raw data: %w", err)
+		} else {
+			batchL2Data = batchL2dataFromTxs
+		}
+	}
 	res := &Batch{
 		Number:          ArgUint64(batch.BatchNumber),
 		GlobalExitRoot:  batch.GlobalExitRoot,
@@ -388,7 +396,7 @@ func NewBatch(
 		}
 	}
 
-	return res
+	return res, nil
 }
 
 // TransactionOrHash for union type of transaction and types.Hash

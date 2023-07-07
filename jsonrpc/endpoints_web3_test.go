@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/0xPolygonHermez/zkevm-node"
+	"github.com/0xPolygon/supernets2-node"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -24,7 +24,7 @@ func TestClientVersion(t *testing.T) {
 	err = json.Unmarshal(res.Result, &result)
 	require.NoError(t, err)
 
-	assert.Equal(t, zkevm.Version, result)
+	assert.Equal(t, supernets2.Version, result)
 }
 
 func TestSha3(t *testing.T) {

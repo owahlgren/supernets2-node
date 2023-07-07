@@ -23,8 +23,8 @@ The current version of the environment requires `go`, `docker` and `docker-compo
 - <https://www.docker.com/get-started>
 - <https://docs.docker.com/compose/install/>
 
-The `zkevm-node` docker image must be built at least once and every time a change is made to the code.
-If you haven't build the `zkevm-node` image yet, you must run:
+The `supernets2-node` docker image must be built at least once and every time a change is made to the code.
+If you haven't build the `supernets2-node` image yet, you must run:
 
 ```bash
 make build-docker
@@ -32,7 +32,7 @@ make build-docker
 
 ## A look at how the binary works:
 
-The `zkevm-node` allows certain commands to interact with smart contracts, run certain components, create encryption files and print out debug information.
+The `supernets2-node` allows certain commands to interact with smart contracts, run certain components, create encryption files and print out debug information.
 
 To interact with the binary program we provide docker compose files, and a Makefile to spin up/down the different services and components, ensuring a smooth deployment locally and better interface in command line for developers.
 

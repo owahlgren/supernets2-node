@@ -9,20 +9,20 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/0xPolygonHermez/zkevm-node/hex"
-	"github.com/0xPolygonHermez/zkevm-node/test/contracts/bin/Called"
-	"github.com/0xPolygonHermez/zkevm-node/test/contracts/bin/Caller"
-	"github.com/0xPolygonHermez/zkevm-node/test/contracts/bin/ChainCallLevel1"
-	"github.com/0xPolygonHermez/zkevm-node/test/contracts/bin/ChainCallLevel2"
-	"github.com/0xPolygonHermez/zkevm-node/test/contracts/bin/ChainCallLevel3"
-	"github.com/0xPolygonHermez/zkevm-node/test/contracts/bin/ChainCallLevel4"
-	"github.com/0xPolygonHermez/zkevm-node/test/contracts/bin/Counter"
-	"github.com/0xPolygonHermez/zkevm-node/test/contracts/bin/Creates"
-	"github.com/0xPolygonHermez/zkevm-node/test/contracts/bin/ERC20"
-	"github.com/0xPolygonHermez/zkevm-node/test/contracts/bin/EmitLog"
-	"github.com/0xPolygonHermez/zkevm-node/test/contracts/bin/Revert2"
-	"github.com/0xPolygonHermez/zkevm-node/test/operations"
-	"github.com/0xPolygonHermez/zkevm-node/test/testutils"
+	"github.com/0xPolygon/supernets2-node/hex"
+	"github.com/0xPolygon/supernets2-node/test/contracts/bin/Called"
+	"github.com/0xPolygon/supernets2-node/test/contracts/bin/Caller"
+	"github.com/0xPolygon/supernets2-node/test/contracts/bin/ChainCallLevel1"
+	"github.com/0xPolygon/supernets2-node/test/contracts/bin/ChainCallLevel2"
+	"github.com/0xPolygon/supernets2-node/test/contracts/bin/ChainCallLevel3"
+	"github.com/0xPolygon/supernets2-node/test/contracts/bin/ChainCallLevel4"
+	"github.com/0xPolygon/supernets2-node/test/contracts/bin/Counter"
+	"github.com/0xPolygon/supernets2-node/test/contracts/bin/Creates"
+	"github.com/0xPolygon/supernets2-node/test/contracts/bin/ERC20"
+	"github.com/0xPolygon/supernets2-node/test/contracts/bin/EmitLog"
+	"github.com/0xPolygon/supernets2-node/test/contracts/bin/Revert2"
+	"github.com/0xPolygon/supernets2-node/test/operations"
+	"github.com/0xPolygon/supernets2-node/test/testutils"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
@@ -505,7 +505,7 @@ func saveTraceResultToFile(t *testing.T, name, network string, signedTx *ethType
 	if skip {
 		return
 	}
-	const path = "/Users/thiago/github.com/0xPolygonHermez/zkevm-node/dist/%v.json"
+	const path = "/Users/thiago/github.com/0xPolygon/supernets2-node/dist/%v.json"
 	sanitizedNetworkName := strings.ReplaceAll(name+network+"_", " ", "_")
 	filePath := fmt.Sprintf(path, sanitizedNetworkName)
 	b, _ := signedTx.MarshalBinary()

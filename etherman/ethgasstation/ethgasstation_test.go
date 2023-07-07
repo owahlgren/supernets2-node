@@ -8,7 +8,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/0xPolygonHermez/zkevm-node/log"
+	"github.com/0xPolygon/supernets2-node/log"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

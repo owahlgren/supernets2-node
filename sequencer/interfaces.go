@@ -5,12 +5,11 @@ import (
 	"math/big"
 	"time"
 
-	ethmanTypes "github.com/0xPolygonHermez/zkevm-node/etherman/types"
-	"github.com/0xPolygonHermez/zkevm-node/ethtxmanager"
-	"github.com/0xPolygonHermez/zkevm-node/pool"
-	"github.com/0xPolygonHermez/zkevm-node/state"
-	"github.com/0xPolygonHermez/zkevm-node/state/metrics"
-	pb "github.com/0xPolygonHermez/zkevm-node/state/runtime/executor/pb"
+	"github.com/0xPolygon/supernets2-node/ethtxmanager"
+	"github.com/0xPolygon/supernets2-node/pool"
+	"github.com/0xPolygon/supernets2-node/state"
+	"github.com/0xPolygon/supernets2-node/state/metrics"
+	pb "github.com/0xPolygon/supernets2-node/state/runtime/executor/pb"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/jackc/pgx/v4"
@@ -31,13 +30,11 @@ type txPool interface {
 
 // etherman contains the methods required to interact with ethereum.
 type etherman interface {
-	EstimateGasSequenceBatches(sender common.Address, sequences []ethmanTypes.Sequence) (*types.Transaction, error)
 	GetSendSequenceFee(numBatches uint64) (*big.Int, error)
 	TrustedSequencer() (common.Address, error)
 	GetLatestBatchNumber() (uint64, error)
 	GetLastBatchTimestamp() (uint64, error)
 	GetLatestBlockTimestamp(ctx context.Context) (uint64, error)
-	BuildSequenceBatchesTxData(sender common.Address, sequences []ethmanTypes.Sequence) (to *common.Address, data []byte, err error)
 	GetLatestBlockNumber(ctx context.Context) (uint64, error)
 }
 

@@ -8,12 +8,12 @@ import (
 
 	"github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/0xPolygonHermez/zkevm-node/etherman/smartcontracts/polygonzkevm"
-	"github.com/0xPolygonHermez/zkevm-node/etherman/smartcontracts/polygonzkevmglobalexitroot"
-	"github.com/0xPolygonHermez/zkevm-node/log"
-	"github.com/0xPolygonHermez/zkevm-node/state"
-	"github.com/0xPolygonHermez/zkevm-node/test/constants"
-	"github.com/0xPolygonHermez/zkevm-node/test/operations"
+	"github.com/0xPolygon/supernets2-node/etherman/smartcontracts/supernets2"
+	"github.com/0xPolygon/supernets2-node/etherman/smartcontracts/supernets2globalexitroot"
+	"github.com/0xPolygon/supernets2-node/log"
+	"github.com/0xPolygon/supernets2-node/state"
+	"github.com/0xPolygon/supernets2-node/test/constants"
+	"github.com/0xPolygon/supernets2-node/test/operations"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
@@ -124,8 +124,8 @@ func sendForcedBatch(t *testing.T, txs []byte, opsman *operations.Manager) (*sta
 	require.NoError(t, err)
 
 	// Create smc client
-	zkEvmAddr := common.HexToAddress(operations.DefaultL1ZkEVMSmartContract)
-	zkEvm, err := polygonzkevm.NewPolygonzkevm(zkEvmAddr, ethClient)
+	supernets2Addr := common.HexToAddress(operations.DefaultL1Supernets2SmartContract)
+	supernets2, err := supernets2.NewSupernets2(supernets2Addr, ethClient)
 	require.NoError(t, err)
 
 	auth, err := operations.GetAuth(operations.DefaultSequencerPrivateKey, operations.DefaultL1ChainID)
@@ -133,29 +133,29 @@ func sendForcedBatch(t *testing.T, txs []byte, opsman *operations.Manager) (*sta
 
 	log.Info("Using address: ", auth.From)
 
-	num, err := zkEvm.LastForceBatch(&bind.CallOpts{Pending: false})
+	num, err := supernets2.LastForceBatch(&bind.CallOpts{Pending: false})
 	require.NoError(t, err)
 
 	log.Info("Number of forceBatches in the smc: ", num)
 
 	// Get tip
-	tip, err := zkEvm.GetForcedBatchFee(&bind.CallOpts{Pending: false})
+	tip, err := supernets2.GetForcedBatchFee(&bind.CallOpts{Pending: false})
 	require.NoError(t, err)
 
-	managerAddress, err := zkEvm.GlobalExitRootManager(&bind.CallOpts{Pending: false})
+	managerAddress, err := supernets2.GlobalExitRootManager(&bind.CallOpts{Pending: false})
 	require.NoError(t, err)
 
-	manager, err := polygonzkevmglobalexitroot.NewPolygonzkevmglobalexitroot(managerAddress, ethClient)
+	manager, err := supernets2globalexitroot.NewSupernets2globalexitroot(managerAddress, ethClient)
 	require.NoError(t, err)
 
 	rootInContract, err := manager.GetLastGlobalExitRoot(&bind.CallOpts{Pending: false})
 	require.NoError(t, err)
 	rootInContractHash := common.BytesToHash(rootInContract[:])
 
-	disallowed, err := zkEvm.IsForcedBatchDisallowed(&bind.CallOpts{Pending: false})
+	disallowed, err := supernets2.IsForcedBatchDisallowed(&bind.CallOpts{Pending: false})
 	require.NoError(t, err)
 	if disallowed {
-		tx, err := zkEvm.ActivateForceBatches(auth)
+		tx, err := supernets2.ActivateForceBatches(auth)
 		require.NoError(t, err)
 		err = operations.WaitTxToBeMined(ctx, ethClient, tx, operations.DefaultTimeoutTxToBeMined)
 		require.NoError(t, err)
@@ -167,7 +167,7 @@ func sendForcedBatch(t *testing.T, txs []byte, opsman *operations.Manager) (*sta
 	log.Debug("currentBlock.Time(): ", currentBlock.Time())
 
 	// Send forceBatch
-	tx, err := zkEvm.ForceBatch(auth, txs, tip)
+	tx, err := supernets2.ForceBatch(auth, txs, tip)
 	require.NoError(t, err)
 
 	log.Info("TxHash: ", tx.Hash())
@@ -178,7 +178,7 @@ func sendForcedBatch(t *testing.T, txs []byte, opsman *operations.Manager) (*sta
 
 	query := ethereum.FilterQuery{
 		FromBlock: currentBlock.Number(),
-		Addresses: []common.Address{zkEvmAddr},
+		Addresses: []common.Address{supernets2Addr},
 	}
 	logs, err := ethClient.FilterLogs(ctx, query)
 	require.NoError(t, err)
@@ -190,7 +190,7 @@ func sendForcedBatch(t *testing.T, txs []byte, opsman *operations.Manager) (*sta
 			require.NoError(t, err)
 			continue
 		}
-		fb, err := zkEvm.ParseForceBatch(vLog)
+		fb, err := supernets2.ParseForceBatch(vLog)
 		if err != nil {
 			log.Errorf("failed to parse force batch log event, err: ", err)
 		}

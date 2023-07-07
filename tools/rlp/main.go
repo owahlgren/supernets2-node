@@ -7,11 +7,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/0xPolygonHermez/zkevm-node/encoding"
-	"github.com/0xPolygonHermez/zkevm-node/etherman/smartcontracts/polygonzkevm"
-	"github.com/0xPolygonHermez/zkevm-node/hex"
-	"github.com/0xPolygonHermez/zkevm-node/log"
-	"github.com/0xPolygonHermez/zkevm-node/state"
+	"github.com/0xPolygon/supernets2-node/encoding"
+	"github.com/0xPolygon/supernets2-node/etherman/smartcontracts/supernets2"
+	"github.com/0xPolygon/supernets2-node/hex"
+	"github.com/0xPolygon/supernets2-node/log"
+	"github.com/0xPolygon/supernets2-node/state"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -225,7 +225,7 @@ func decodeFullCallDataToTxs(txsData []byte) ([]types.Transaction, []byte, error
 
 	// Extract coded txs.
 	// Load contract ABI
-	abi, err := abi.JSON(strings.NewReader(polygonzkevm.PolygonzkevmABI))
+	abi, err := abi.JSON(strings.NewReader(supernets2.Supernets2ABI))
 	if err != nil {
 		log.Fatal("error reading smart contract abi: ", err)
 	}

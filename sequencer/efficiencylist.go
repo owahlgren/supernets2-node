@@ -5,7 +5,7 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/0xPolygonHermez/zkevm-node/log"
+	"github.com/0xPolygon/supernets2-node/log"
 )
 
 // efficiencyList represents a list of tx sorted by efficiency

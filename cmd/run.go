@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"crypto/ecdsa"
 	"fmt"
 	"net"
 	"net/http"
@@ -11,30 +12,32 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/0xPolygonHermez/zkevm-node"
-	"github.com/0xPolygonHermez/zkevm-node/aggregator"
-	"github.com/0xPolygonHermez/zkevm-node/config"
-	"github.com/0xPolygonHermez/zkevm-node/db"
-	"github.com/0xPolygonHermez/zkevm-node/etherman"
-	"github.com/0xPolygonHermez/zkevm-node/ethtxmanager"
-	"github.com/0xPolygonHermez/zkevm-node/event"
-	"github.com/0xPolygonHermez/zkevm-node/event/nileventstorage"
-	"github.com/0xPolygonHermez/zkevm-node/event/pgeventstorage"
-	"github.com/0xPolygonHermez/zkevm-node/gasprice"
-	"github.com/0xPolygonHermez/zkevm-node/jsonrpc"
-	"github.com/0xPolygonHermez/zkevm-node/jsonrpc/client"
-	"github.com/0xPolygonHermez/zkevm-node/log"
-	"github.com/0xPolygonHermez/zkevm-node/merkletree"
-	"github.com/0xPolygonHermez/zkevm-node/metrics"
-	"github.com/0xPolygonHermez/zkevm-node/pool"
-	"github.com/0xPolygonHermez/zkevm-node/pool/pgpoolstorage"
-	"github.com/0xPolygonHermez/zkevm-node/sequencer"
-	"github.com/0xPolygonHermez/zkevm-node/sequencesender"
-	"github.com/0xPolygonHermez/zkevm-node/state"
-	"github.com/0xPolygonHermez/zkevm-node/state/runtime/executor"
-	executorpb "github.com/0xPolygonHermez/zkevm-node/state/runtime/executor/pb"
-	"github.com/0xPolygonHermez/zkevm-node/synchronizer"
+	dataCommitteeClient "github.com/0xPolygon/supernets2-data-availability/client"
+	"github.com/0xPolygon/supernets2-node"
+	"github.com/0xPolygon/supernets2-node/aggregator"
+	"github.com/0xPolygon/supernets2-node/config"
+	"github.com/0xPolygon/supernets2-node/db"
+	"github.com/0xPolygon/supernets2-node/etherman"
+	"github.com/0xPolygon/supernets2-node/ethtxmanager"
+	"github.com/0xPolygon/supernets2-node/event"
+	"github.com/0xPolygon/supernets2-node/event/nileventstorage"
+	"github.com/0xPolygon/supernets2-node/event/pgeventstorage"
+	"github.com/0xPolygon/supernets2-node/gasprice"
+	"github.com/0xPolygon/supernets2-node/jsonrpc"
+	"github.com/0xPolygon/supernets2-node/jsonrpc/client"
+	"github.com/0xPolygon/supernets2-node/log"
+	"github.com/0xPolygon/supernets2-node/merkletree"
+	"github.com/0xPolygon/supernets2-node/metrics"
+	"github.com/0xPolygon/supernets2-node/pool"
+	"github.com/0xPolygon/supernets2-node/pool/pgpoolstorage"
+	"github.com/0xPolygon/supernets2-node/sequencer"
+	"github.com/0xPolygon/supernets2-node/sequencesender"
+	"github.com/0xPolygon/supernets2-node/state"
+	"github.com/0xPolygon/supernets2-node/state/runtime/executor"
+	executorpb "github.com/0xPolygon/supernets2-node/state/runtime/executor/pb"
+	"github.com/0xPolygon/supernets2-node/synchronizer"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/urfave/cli/v2"
@@ -48,7 +51,7 @@ func start(cliCtx *cli.Context) error {
 	setupLog(c.Log)
 
 	if c.Log.Environment == log.EnvironmentDevelopment {
-		zkevm.PrintVersion(os.Stdout)
+		supernets2.PrintVersion(os.Stdout)
 		log.Info("Starting application")
 	} else if c.Log.Environment == log.EnvironmentProduction {
 		logVersion()
@@ -305,6 +308,7 @@ func runSynchronizer(cfg config.Config, etherman *etherman.Client, ethTxManager 
 	sy, err := synchronizer.NewSynchronizer(
 		cfg.IsTrustedSequencer, etherman, st, pool, ethTxManager,
 		zkEVMClient, cfg.NetworkConfig.Genesis, cfg.Synchronizer,
+		&dataCommitteeClient.ClientFactory{},
 	)
 	if err != nil {
 		log.Fatal(err)
@@ -387,16 +391,24 @@ func createSequenceSender(cfg config.Config, pool *pool.Pool, etmStorage *ethtxm
 		log.Fatal(err)
 	}
 
+	var seqPrivKey *ecdsa.PrivateKey
 	for _, privateKey := range cfg.SequenceSender.PrivateKeys {
-		_, err := etherman.LoadAuthFromKeyStore(privateKey.Path, privateKey.Password)
+		_, pk, err := etherman.LoadAuthFromKeyStore(privateKey.Path, privateKey.Password)
 		if err != nil {
 			log.Fatal(err)
 		}
+		log.Infof("from pk %s, from sender %s", crypto.PubkeyToAddress(pk.PublicKey), common.HexToAddress(cfg.SequenceSender.SenderAddress))
+		if crypto.PubkeyToAddress(pk.PublicKey) == common.HexToAddress(cfg.SequenceSender.SenderAddress) {
+			seqPrivKey = pk
+		}
+	}
+	if seqPrivKey == nil {
+		log.Fatal("Sequencer private key not found")
 	}
 
 	ethTxManager := ethtxmanager.New(cfg.EthTxManager, etherman, etmStorage, st)
 
-	seqSender, err := sequencesender.New(cfg.SequenceSender, st, etherman, ethTxManager, eventLog)
+	seqSender, err := sequencesender.New(cfg.SequenceSender, st, etherman, ethTxManager, eventLog, seqPrivKey)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -482,7 +494,7 @@ func createEthTxManager(cfg config.Config, etmStorage *ethtxmanager.PostgresStor
 	}
 
 	for _, privateKey := range cfg.EthTxManager.PrivateKeys {
-		_, err := etherman.LoadAuthFromKeyStore(privateKey.Path, privateKey.Password)
+		_, _, err := etherman.LoadAuthFromKeyStore(privateKey.Path, privateKey.Password)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -551,10 +563,10 @@ func startMetricsHttpServer(c metrics.Config) {
 func logVersion() {
 	log.Infow("Starting application",
 		// node version is already logged by default
-		"gitRevision", zkevm.GitRev,
-		"gitBranch", zkevm.GitBranch,
+		"gitRevision", supernets2.GitRev,
+		"gitBranch", supernets2.GitBranch,
 		"goVersion", runtime.Version(),
-		"built", zkevm.BuildDate,
+		"built", supernets2.BuildDate,
 		"os/arch", fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH),
 	)
 }

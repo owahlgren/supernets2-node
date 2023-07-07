@@ -1,6 +1,6 @@
 package types
 
-import "github.com/0xPolygonHermez/zkevm-node/aggregator/pb"
+import "github.com/0xPolygon/supernets2-node/aggregator/pb"
 
 // FinalProofInputs struct
 type FinalProofInputs struct {

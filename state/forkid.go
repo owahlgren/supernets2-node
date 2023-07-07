@@ -1,6 +1,6 @@
 package state
 
-import "github.com/0xPolygonHermez/zkevm-node/log"
+import "github.com/0xPolygon/supernets2-node/log"
 
 // ForkIDInterval is a fork id interval
 type ForkIDInterval struct {

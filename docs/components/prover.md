@@ -1,6 +1,6 @@
 # Component: Prover
 
-NOTE: The Prover is not considered part of the ZKEVM Node and all issues and suggestions should be sent to the [Prover repo](https://github.com/0xPolygonHermez/zkevm-prover/).
+NOTE: The Prover is not considered part of the ZKEVM Node and all issues and suggestions should be sent to the [Prover repo](https://github.com/0xPolygonHermez/supernets2-prover/).
 
 ## ZKEVM Prover:
 
@@ -21,9 +21,9 @@ docker pull hermeznetwork/zkevm-prover
 To orchestrate multiple deployments of the different ZKEVM Node components, a `docker-compose.yaml` file for Docker Compose can be used:
 
 ```yaml
-  zkevm-prover:
-    container_name: zkevm-prover
-    image: zkevm-prover
+  supernets2-prover:
+    container_name: supernets2-prover
+    image: supernets2-prover
     volumes:
       - ./prover-config.json:/usr/src/app/config.json
     command: >

@@ -7,12 +7,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/0xPolygonHermez/zkevm-node/event"
-	"github.com/0xPolygonHermez/zkevm-node/log"
-	"github.com/0xPolygonHermez/zkevm-node/pool"
-	"github.com/0xPolygonHermez/zkevm-node/sequencer/metrics"
-	"github.com/0xPolygonHermez/zkevm-node/state"
-	stateMetrics "github.com/0xPolygonHermez/zkevm-node/state/metrics"
+	"github.com/0xPolygon/supernets2-node/event"
+	"github.com/0xPolygon/supernets2-node/log"
+	"github.com/0xPolygon/supernets2-node/pool"
+	"github.com/0xPolygon/supernets2-node/sequencer/metrics"
+	"github.com/0xPolygon/supernets2-node/state"
+	stateMetrics "github.com/0xPolygon/supernets2-node/state/metrics"
 	"github.com/ethereum/go-ethereum/common"
 )
 

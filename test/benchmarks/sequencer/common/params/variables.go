@@ -4,8 +4,8 @@ import (
 	"context"
 	"strings"
 
-	"github.com/0xPolygonHermez/zkevm-node/test/dbutils"
-	"github.com/0xPolygonHermez/zkevm-node/test/operations"
+	"github.com/0xPolygon/supernets2-node/test/dbutils"
+	"github.com/0xPolygon/supernets2-node/test/operations"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 )

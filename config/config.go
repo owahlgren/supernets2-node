@@ -5,22 +5,22 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/0xPolygonHermez/zkevm-node/aggregator"
-	"github.com/0xPolygonHermez/zkevm-node/db"
-	"github.com/0xPolygonHermez/zkevm-node/etherman"
-	"github.com/0xPolygonHermez/zkevm-node/ethtxmanager"
-	"github.com/0xPolygonHermez/zkevm-node/event"
-	"github.com/0xPolygonHermez/zkevm-node/gasprice"
-	"github.com/0xPolygonHermez/zkevm-node/jsonrpc"
-	"github.com/0xPolygonHermez/zkevm-node/log"
-	"github.com/0xPolygonHermez/zkevm-node/merkletree"
-	"github.com/0xPolygonHermez/zkevm-node/metrics"
-	"github.com/0xPolygonHermez/zkevm-node/pool"
-	"github.com/0xPolygonHermez/zkevm-node/pricegetter"
-	"github.com/0xPolygonHermez/zkevm-node/sequencer"
-	"github.com/0xPolygonHermez/zkevm-node/sequencesender"
-	"github.com/0xPolygonHermez/zkevm-node/state/runtime/executor"
-	"github.com/0xPolygonHermez/zkevm-node/synchronizer"
+	"github.com/0xPolygon/supernets2-node/aggregator"
+	"github.com/0xPolygon/supernets2-node/db"
+	"github.com/0xPolygon/supernets2-node/etherman"
+	"github.com/0xPolygon/supernets2-node/ethtxmanager"
+	"github.com/0xPolygon/supernets2-node/event"
+	"github.com/0xPolygon/supernets2-node/gasprice"
+	"github.com/0xPolygon/supernets2-node/jsonrpc"
+	"github.com/0xPolygon/supernets2-node/log"
+	"github.com/0xPolygon/supernets2-node/merkletree"
+	"github.com/0xPolygon/supernets2-node/metrics"
+	"github.com/0xPolygon/supernets2-node/pool"
+	"github.com/0xPolygon/supernets2-node/pricegetter"
+	"github.com/0xPolygon/supernets2-node/sequencer"
+	"github.com/0xPolygon/supernets2-node/sequencesender"
+	"github.com/0xPolygon/supernets2-node/state/runtime/executor"
+	"github.com/0xPolygon/supernets2-node/synchronizer"
 	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/viper"
 	"github.com/urfave/cli/v2"
@@ -111,7 +111,7 @@ func Load(ctx *cli.Context) (*Config, error) {
 	viper.AutomaticEnv()
 	replacer := strings.NewReplacer(".", "_")
 	viper.SetEnvKeyReplacer(replacer)
-	viper.SetEnvPrefix("ZKEVM_NODE")
+	viper.SetEnvPrefix("SUPERNETS2_NODE")
 	err = viper.ReadInConfig()
 	if err != nil {
 		_, ok := err.(viper.ConfigFileNotFoundError)

@@ -6,9 +6,9 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/0xPolygonHermez/zkevm-node/log"
-	"github.com/0xPolygonHermez/zkevm-node/pricegetter/priceprovider"
-	"github.com/0xPolygonHermez/zkevm-node/pricegetter/priceprovider/uniswap"
+	"github.com/0xPolygon/supernets2-node/log"
+	"github.com/0xPolygon/supernets2-node/pricegetter/priceprovider"
+	"github.com/0xPolygon/supernets2-node/pricegetter/priceprovider/uniswap"
 )
 
 // Client for the pricegetter

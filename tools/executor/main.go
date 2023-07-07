@@ -9,12 +9,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/0xPolygonHermez/zkevm-node/db"
-	"github.com/0xPolygonHermez/zkevm-node/log"
-	"github.com/0xPolygonHermez/zkevm-node/state"
-	"github.com/0xPolygonHermez/zkevm-node/state/runtime/executor"
-	"github.com/0xPolygonHermez/zkevm-node/state/runtime/executor/pb"
-	"github.com/0xPolygonHermez/zkevm-node/test/testutils"
+	"github.com/0xPolygon/supernets2-node/db"
+	"github.com/0xPolygon/supernets2-node/log"
+	"github.com/0xPolygon/supernets2-node/state"
+	"github.com/0xPolygon/supernets2-node/state/runtime/executor"
+	"github.com/0xPolygon/supernets2-node/state/runtime/executor/pb"
+	"github.com/0xPolygon/supernets2-node/test/testutils"
 )
 
 const (

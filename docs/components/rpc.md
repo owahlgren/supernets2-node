@@ -16,19 +16,19 @@ The ZKEVM RPC relays transactions to the Trusted sequencer.
 The preferred way to run the ZKEVM RPC component is via Docker and Docker Compose.
 
 ```bash
-docker pull hermeznetwork/zkevm-node
+docker pull hermeznetwork/supernets2-node
 ```
 
 To orchestrate multiple deployments of the different ZKEVM Node components, a `docker-compose.yaml` file for Docker Compose can be used:
 
 ```yaml
-  zkevm-rpc:
-    container_name: zkevm-rpc
-    image: zkevm-node
+  supernets2-rpc:
+    container_name: supernets2-rpc
+    image: supernets2-node
     command:
         - "/bin/sh"
         - "-c"
-        - "/app/zkevm-node run --genesis /app/genesis.json --cfg /app/config.toml --components rpc"
+        - "/app/supernets2-node run --genesis /app/genesis.json --cfg /app/config.toml --components rpc"
 ```
 
 The container alone needs some parameters configured, access to certain configuration files and the appropriate ports exposed.
