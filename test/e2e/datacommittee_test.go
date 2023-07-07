@@ -14,13 +14,13 @@ import (
 	"testing"
 	"time"
 
+	"github.com/0xPolygon/supernets2-data-availability/config"
+	"github.com/0xPolygon/supernets2-node/etherman/smartcontracts/supernets2datacommittee"
+	"github.com/0xPolygon/supernets2-node/log"
+	"github.com/0xPolygon/supernets2-node/test/operations"
 	cTypes "github.com/0xPolygonHermez/zkevm-node/config/types"
 	"github.com/0xPolygonHermez/zkevm-node/db"
-	"github.com/0xPolygonHermez/zkevm-node/etherman/smartcontracts/supernets2datacommittee"
 	"github.com/0xPolygonHermez/zkevm-node/jsonrpc"
-	"github.com/0xPolygonHermez/zkevm-node/log"
-	"github.com/0xPolygonHermez/zkevm-node/test/operations"
-	"github.com/0xPolygonHermez/zklidium-data-node/config"
 	"github.com/ethereum/go-ethereum"
 	eTypes "github.com/ethereum/go-ethereum/core/types"
 
@@ -109,7 +109,12 @@ func TestDataCommittee(t *testing.T) {
 
 	// Spin up M DAC nodes
 	dacNodeConfig := config.Config{
-		SequencerAddr: operations.DefaultSequencerAddress,
+		L1: config.L1Config{
+			WsURL:       "ws://supernets2-mock-l1-network:8546",
+			Contract:    "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
+			Timeout:     cTypes.NewDuration(time.Minute * 3),
+			RetryPeriod: cTypes.NewDuration(time.Second * 5),
+		},
 		PrivateKey: cTypes.KeystoreFileConfig{
 			Path:     ksFile,
 			Password: ksPass,
@@ -169,10 +174,10 @@ func TestDataCommittee(t *testing.T) {
 		// Run DAC node
 		cmd := exec.Command(
 			"docker", "run", "-d",
-			"--name", "zklidium-data-node-"+strconv.Itoa(m.i),
+			"--name", "supernets2-data-availability-"+strconv.Itoa(m.i),
 			"-v", cfgFile+":/app/config.json",
 			"-v", ksFile+":"+ksFile,
-			"--network", "zkevm",
+			"--network", "supernets2",
 			dacNodeContainer,
 			"/bin/sh", "-c",
 			"/app/zklidium-data-node run --cfg /app/config.json",

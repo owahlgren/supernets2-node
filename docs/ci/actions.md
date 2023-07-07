@@ -22,7 +22,7 @@ PR opened and pushing changes to PRs.
 ## push-docker-develop
 
 Pushes docker images to docker hub, the images pushed are:
-* `hermeznetwork/zkevm-node:develop`
+* `hermeznetwork/supernets2-node:develop`
 
 ### When is executed
 
@@ -31,7 +31,7 @@ Changes pushed to the `develop` branch.
 ## push-docker
 
 Pushes docker images to docker hub, the images pushed are:
-* `hermeznetwork/zkevm-node:latest`
+* `hermeznetwork/supernets2-node:latest`
 
 ### When is executed
 

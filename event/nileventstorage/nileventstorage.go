@@ -3,8 +3,8 @@ package nileventstorage
 import (
 	"context"
 
-	"github.com/0xPolygonHermez/zkevm-node/event"
-	"github.com/0xPolygonHermez/zkevm-node/log"
+	"github.com/0xPolygon/supernets2-node/event"
+	"github.com/0xPolygon/supernets2-node/log"
 )
 
 // NilEventStorage is an implementation of the event storage interface

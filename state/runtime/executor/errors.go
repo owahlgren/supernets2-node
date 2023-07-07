@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/0xPolygonHermez/zkevm-node/state/runtime"
-	"github.com/0xPolygonHermez/zkevm-node/state/runtime/executor/pb"
+	"github.com/0xPolygon/supernets2-node/state/runtime"
+	"github.com/0xPolygon/supernets2-node/state/runtime/executor/pb"
 )
 
 const (

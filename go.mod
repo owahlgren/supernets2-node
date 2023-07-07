@@ -1,8 +1,10 @@
-module github.com/0xPolygonHermez/zkevm-node
+module github.com/0xPolygon/supernets2-node
 
 go 1.19
 
 require (
+	github.com/0xPolygon/supernets2-data-availability v0.0.0-20230706174409-c13d92e1e0a5
+	github.com/0xPolygonHermez/zkevm-node v0.1.0-RC8.0.20230601153103-86d9fb808691
 	github.com/didip/tollbooth/v6 v6.1.2
 	github.com/dop251/goja v0.0.0-20230122112309-96b1610dd4f7
 	github.com/ethereum/go-ethereum v1.12.0
@@ -95,6 +97,7 @@ require (
 	github.com/markbates/safe v1.0.1 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
+	github.com/miguelmota/go-solidity-sha3 v0.1.1 // indirect
 	github.com/olekukonko/tablewriter v0.0.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.8 // indirect
 	github.com/pjbgf/sha1cd v0.3.0 // indirect

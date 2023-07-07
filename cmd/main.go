@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/0xPolygonHermez/zkevm-node"
-	"github.com/0xPolygonHermez/zkevm-node/config"
-	"github.com/0xPolygonHermez/zkevm-node/jsonrpc"
-	"github.com/0xPolygonHermez/zkevm-node/log"
+	"github.com/0xPolygon/supernets2-node"
+	"github.com/0xPolygon/supernets2-node/config"
+	"github.com/0xPolygon/supernets2-node/jsonrpc"
+	"github.com/0xPolygon/supernets2-node/log"
 	"github.com/urfave/cli/v2"
 )
 
-const appName = "zkevm-node"
+const appName = "supernets2-node"
 
 const (
 	// AGGREGATOR is the aggregator component identifier
@@ -80,7 +80,7 @@ var (
 func main() {
 	app := cli.NewApp()
 	app.Name = appName
-	app.Version = zkevm.Version
+	app.Version = supernets2.Version
 	flags := []cli.Flag{
 		&configFileFlag,
 		&yesFlag,
@@ -97,7 +97,7 @@ func main() {
 		{
 			Name:    "run",
 			Aliases: []string{},
-			Usage:   "Run the zkevm-node",
+			Usage:   "Run the supernets2-node",
 			Action:  start,
 			Flags:   append(flags, &networkFlag, &customNetworkFlag, &migrationsFlag),
 		},

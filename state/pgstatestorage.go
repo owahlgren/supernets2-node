@@ -8,7 +8,7 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/0xPolygonHermez/zkevm-node/hex"
+	"github.com/0xPolygon/supernets2-node/hex"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/jackc/pgx/v4"
@@ -474,7 +474,7 @@ func (p *PostgresStorage) GetLastNBatchesByL2BlockNumber(ctx context.Context, l2
 			l2BlockStateRoot = _l2BlockStateRoot
 		}
 		// if there is no corresponding l2_block, it will use the latest batch state_root
-		// it is related to https://github.com/0xPolygonHermez/zkevm-node/issues/1299
+		// it is related to https://github.com/0xPolygon/supernets2-node/issues/1299
 		if l2BlockStateRoot == nil && batch.StateRoot != emptyHash {
 			l2BlockStateRoot = &batch.StateRoot
 		}
@@ -583,6 +583,21 @@ func (p *PostgresStorage) GetBatchByNumber(ctx context.Context, batchNumber uint
 	}
 
 	return &batch, nil
+}
+
+// GetBatchL2DataByNumber returns the batch L2 data of the given batch number.
+func (p *PostgresStorage) GetBatchL2DataByNumber(ctx context.Context, batchNumber uint64, dbTx pgx.Tx) ([]byte, error) {
+	getBatchL2DataByBatchNumber := "SELECT raw_txs_data FROM state.batch WHERE batch_num = $1"
+	q := p.getExecQuerier(dbTx)
+	var batchL2Data []byte
+	err := q.QueryRow(ctx, getBatchL2DataByBatchNumber, batchNumber).Scan(&batchL2Data)
+
+	if errors.Is(err, pgx.ErrNoRows) {
+		return nil, ErrNotFound
+	} else if err != nil {
+		return nil, err
+	}
+	return batchL2Data, nil
 }
 
 // GetBatchByTxHash returns the batch including the given tx

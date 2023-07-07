@@ -8,7 +8,7 @@ import (
 	"math/big"
 	"net/http"
 
-	"github.com/0xPolygonHermez/zkevm-node/encoding"
+	"github.com/0xPolygon/supernets2-node/encoding"
 )
 
 type ethGasStationResponse struct {

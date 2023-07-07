@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/0xPolygonHermez/zkevm-node/config/types"
-	"github.com/0xPolygonHermez/zkevm-node/pricegetter/priceprovider"
+	"github.com/0xPolygon/supernets2-node/config/types"
+	"github.com/0xPolygon/supernets2-node/pricegetter/priceprovider"
 )
 
 // TokenPrice is a wrapper type that parses token amount to big float

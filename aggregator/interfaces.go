@@ -4,10 +4,10 @@ import (
 	"context"
 	"math/big"
 
-	"github.com/0xPolygonHermez/zkevm-node/aggregator/pb"
-	ethmanTypes "github.com/0xPolygonHermez/zkevm-node/etherman/types"
-	"github.com/0xPolygonHermez/zkevm-node/ethtxmanager"
-	"github.com/0xPolygonHermez/zkevm-node/state"
+	"github.com/0xPolygon/supernets2-node/aggregator/pb"
+	ethmanTypes "github.com/0xPolygon/supernets2-node/etherman/types"
+	"github.com/0xPolygon/supernets2-node/ethtxmanager"
+	"github.com/0xPolygon/supernets2-node/state"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/jackc/pgx/v4"
 )

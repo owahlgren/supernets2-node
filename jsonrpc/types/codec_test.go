@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/0xPolygonHermez/zkevm-node/jsonrpc/mocks"
+	"github.com/0xPolygon/supernets2-node/jsonrpc/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

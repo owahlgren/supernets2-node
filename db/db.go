@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/0xPolygonHermez/zkevm-node/log"
+	"github.com/0xPolygon/supernets2-node/log"
 	"github.com/gobuffalo/packr/v2"
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
@@ -14,9 +14,9 @@ import (
 
 const (
 	// StateMigrationName is the name of the migration used by packr to pack the migration file
-	StateMigrationName = "zkevm-state-db"
+	StateMigrationName = "supernets2-state-db"
 	// PoolMigrationName is the name of the migration used by packr to pack the migration file
-	PoolMigrationName = "zkevm-pool-db"
+	PoolMigrationName = "supernets2-pool-db"
 )
 
 var packrMigrations = map[string]*packr.Box{

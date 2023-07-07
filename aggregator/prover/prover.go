@@ -7,10 +7,10 @@ import (
 	"net"
 	"time"
 
-	"github.com/0xPolygonHermez/zkevm-node/aggregator/metrics"
-	"github.com/0xPolygonHermez/zkevm-node/aggregator/pb"
-	"github.com/0xPolygonHermez/zkevm-node/config/types"
-	"github.com/0xPolygonHermez/zkevm-node/log"
+	"github.com/0xPolygon/supernets2-node/aggregator/metrics"
+	"github.com/0xPolygon/supernets2-node/aggregator/pb"
+	"github.com/0xPolygon/supernets2-node/config/types"
+	"github.com/0xPolygon/supernets2-node/log"
 )
 
 var (

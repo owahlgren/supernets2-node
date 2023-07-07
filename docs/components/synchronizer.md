@@ -11,7 +11,7 @@ This module syncs data between the Layer 1 Ethereum network and ZKEVM L2 network
 The preferred way to run the ZKEVM Synchronizer component is via Docker and Docker Compose.
 
 ```bash
-docker pull hermeznetwork/zkevm-node
+docker pull hermeznetwork/supernets2-node
 ```
 
 To orchestrate multiple deployments of the different ZKEVM Node components, a `docker-compose.yaml` file for Docker Compose can be used:

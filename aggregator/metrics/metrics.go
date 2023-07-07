@@ -1,7 +1,7 @@
 package metrics
 
 import (
-	"github.com/0xPolygonHermez/zkevm-node/metrics"
+	"github.com/0xPolygon/supernets2-node/metrics"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

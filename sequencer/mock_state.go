@@ -8,15 +8,15 @@ import (
 
 	common "github.com/ethereum/go-ethereum/common"
 
-	metrics "github.com/0xPolygonHermez/zkevm-node/state/metrics"
+	metrics "github.com/0xPolygon/supernets2-node/state/metrics"
 
 	mock "github.com/stretchr/testify/mock"
 
-	pb "github.com/0xPolygonHermez/zkevm-node/state/runtime/executor/pb"
+	pb "github.com/0xPolygon/supernets2-node/state/runtime/executor/pb"
 
 	pgx "github.com/jackc/pgx/v4"
 
-	state "github.com/0xPolygonHermez/zkevm-node/state"
+	state "github.com/0xPolygon/supernets2-node/state"
 
 	time "time"
 

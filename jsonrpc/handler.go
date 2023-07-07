@@ -9,8 +9,8 @@ import (
 	"sync"
 	"unicode"
 
-	"github.com/0xPolygonHermez/zkevm-node/jsonrpc/types"
-	"github.com/0xPolygonHermez/zkevm-node/log"
+	"github.com/0xPolygon/supernets2-node/jsonrpc/types"
+	"github.com/0xPolygon/supernets2-node/log"
 	"github.com/gorilla/websocket"
 )
 

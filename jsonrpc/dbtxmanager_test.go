@@ -5,8 +5,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/0xPolygonHermez/zkevm-node/jsonrpc/mocks"
-	"github.com/0xPolygonHermez/zkevm-node/jsonrpc/types"
+	"github.com/0xPolygon/supernets2-node/jsonrpc/mocks"
+	"github.com/0xPolygon/supernets2-node/jsonrpc/types"
 	"github.com/jackc/pgx/v4"
 	"github.com/stretchr/testify/assert"
 )

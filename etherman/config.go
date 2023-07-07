@@ -1,7 +1,7 @@
 package etherman
 
 import (
-	"github.com/0xPolygonHermez/zkevm-node/etherman/etherscan"
+	"github.com/0xPolygon/supernets2-node/etherman/etherscan"
 )
 
 // Config represents the configuration of the etherman

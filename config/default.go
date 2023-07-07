@@ -13,7 +13,7 @@ Outputs = ["stderr"]
 User = "state_user"
 Password = "state_password"
 Name = "state_db"
-Host = "zkevm-state-db"
+Host = "supernets2-state-db"
 Port = "5432"
 EnableLog = false
 MaxConns = 200
@@ -29,7 +29,7 @@ PollMinAllowedGasPriceInterval = "15s"
 	User = "pool_user"
 	Password = "pool_password"
 	Name = "pool_db"
-	Host = "zkevm-pool-db"
+	Host = "supernets2-pool-db"
 	Port = "5432"
 	EnableLog = false
 	MaxConns = 200
@@ -108,7 +108,7 @@ MaxTxLifetime = "3h"
 [SequenceSender]
 WaitPeriodSendSequence = "5s"
 LastBatchVirtualizationTimeMaxWaitPeriod = "5s"
-MaxTxSizeForL1 = 131072
+MaxBatchesForL1 = 1000
 SenderAddress = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
 PrivateKeys = [{Path = "/pk/sequencer.keystore", Password = "testonly"}]
 
@@ -135,10 +135,10 @@ Factor = 0.15
 DefaultGasPriceWei = 2000000000
 
 [MTClient]
-URI = "zkevm-prover:50061"
+URI = "supernets2-prover:50061"
 
 [Executor]
-URI = "zkevm-prover:50071"
+URI = "supernets2-prover:50071"
 
 [Metrics]
 Host = "0.0.0.0"

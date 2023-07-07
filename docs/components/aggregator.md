@@ -15,7 +15,7 @@ The ZKEVM Aggregator is an optional module responsible for receiving connections
 The preferred way to run the ZKEVM Aggregator component is via Docker and Docker Compose.
 
 ```bash
-docker pull hermeznetwork/zkevm-node
+docker pull hermeznetwork/supernets2-node
 ```
 
 To orchestrate multiple deployments of the different ZKEVM Node components, a `docker-compose.yaml` file for Docker Compose can be used:
