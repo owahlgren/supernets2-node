@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"context"
+	"fmt"
 	"math/big"
 	"os/exec"
 	"testing"
@@ -23,26 +24,30 @@ func TestEthTransferGasless(t *testing.T) {
 		t.Skip()
 	}
 	// Edit config
+	out, err := exec.Command("pwd").CombinedOutput()
+	fmt.Println(string(out))
+	require.NoError(t, err)
+	const path = "../../test/config/test.node.config.toml"
 	require.NoError(t,
-		exec.Command("sed", "-i", "s/DefaultMinGasPriceAllowed = 1000000000/DefaultMinGasPriceAllowed = 0/g", "./config/test.node.config.toml").Run(),
+		exec.Command("sed", "-i", "s/DefaultMinGasPriceAllowed = 1000000000/DefaultMinGasPriceAllowed = 0/g", path).Run(),
 	)
 	require.NoError(t,
-		exec.Command("sed", "-i", "s/EnableL2SuggestedGasPricePolling = true/EnableL2SuggestedGasPricePolling = false/g", "./config/test.node.config.toml").Run(),
+		exec.Command("sed", "-i", "s/EnableL2SuggestedGasPricePolling = true/EnableL2SuggestedGasPricePolling = false/g", path).Run(),
 	)
 	// Undo edit config
 	defer func() {
 		require.NoError(t,
-			exec.Command("sed", "-i", "s/DefaultMinGasPriceAllowed = 0/DefaultMinGasPriceAllowed = 1000000000/g", "./config/test.node.config.toml").Run(),
+			exec.Command("sed", "-i", "s/DefaultMinGasPriceAllowed = 0/DefaultMinGasPriceAllowed = 1000000000/g", path).Run(),
 		)
 		require.NoError(t,
-			exec.Command("sed", "-i", "s/EnableL2SuggestedGasPricePolling = false/EnableL2SuggestedGasPricePolling = true/g", "./config/test.node.config.toml").Run(),
+			exec.Command("sed", "-i", "s/EnableL2SuggestedGasPricePolling = false/EnableL2SuggestedGasPricePolling = true/g", path).Run(),
 		)
 	}()
 
 	ctx := context.Background()
 	defer func() { require.NoError(t, operations.Teardown()) }()
 
-	err := operations.Teardown()
+	err = operations.Teardown()
 	require.NoError(t, err)
 	opsCfg := operations.GetDefaultOperationsConfig()
 	opsCfg.State.MaxCumulativeGasUsed = 80000000000
