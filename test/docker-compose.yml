@@ -224,7 +224,7 @@ services:
 
   supernets2-explorer-l1:
     container_name: supernets2-explorer-l1
-    image: hermeznetwork/hermez-node-blockscout:latest
+    image: hermeznetwork/zkevm-explorer:latest
     ports:
       - 4000:4000
     environment:
@@ -245,7 +245,7 @@ services:
     container_name: supernets2-explorer-l1-db
     image: postgres
     ports:
-      - 5435:5432
+      - 5437:5432
     environment:
       - POSTGRES_USER=l1_explorer_user
       - POSTGRES_PASSWORD=l1_explorer_password
@@ -257,7 +257,7 @@ services:
 
   supernets2-explorer-l2:
     container_name: supernets2-explorer-l2
-    image: hermeznetwork/hermez-node-blockscout:latest
+    image: hermeznetwork/zkevm-explorer:latest
     ports:
       - 4001:4000
     environment:
